@@ -1,5 +1,5 @@
 from  huisqlBase import *
-from huisqlTable import table
+from huisqlTable import table_menu_generator
 from connection import *
 import urwid, MySQLdb, sys, re
 import layer
@@ -19,7 +19,7 @@ class database_menu_generator(base_huisql_item):
         caption = args[0][0]
         DB.select_db(caption)
         CURSOR.execute("show tables;")
-        data = self.menu(caption,[table(i[0])() for i in CURSOR.fetchall()])
+        data = self.menu(caption,[table_menu_generator(i[0])() for i in CURSOR.fetchall()])
         return layer.get_top().open_box(data)
 
     def db_menu_button(self,caption):

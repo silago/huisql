@@ -6,17 +6,12 @@ import layer
 from connection import *
 
 
-
- 
-
-
-
-def get_table_columns_and_pkeys(caption):
-    CURSOR.execute("SHOW COLUMNS from "+caption+";");
-    columns = CURSOR.fetchall()
-    pkeys= [(str(i[0])) for i in columns if "PRI" in i]
-    columns = [str(i[0]) for i in columns] 
-    return [columns,pkeys]
+#def get_table_columns_and_pkeys(caption):
+#    CURSOR.execute("SHOW COLUMNS from "+caption+";");
+#    columns = CURSOR.fetchall()
+#    pkeys= [(str(i[0])) for i in columns if "PRI" in i]
+#    columns = [str(i[0]) for i in columns] 
+#    return [columns,pkeys]
 
 
 class ExecBox(urwid.Filler):
@@ -83,13 +78,6 @@ def row_button(caption, callback,column_name):
     urwid.connect_signal(button, 'click', callback,column_name)
     return urwid.AttrMap(button, None, focus_map='reversed')
 
-def row_cells(row,columns,pkeys,table):
-    def click(button,column_name):
-        edit = urwid.Edit(u"Enter new value for "+column_name+" with keys "+str(pkeys)+" \n",button.label)
-        fill = InputBox(edit,column_name,pkeys,table)
-        top.open_box(fill)
-    button = urwid.Columns([row_button(str(i),click,str(columns[k])) for (k,i) in enumerate(row)])
-    return urwid.AttrMap(button, None, focus_map='reversed')
 
 
 
